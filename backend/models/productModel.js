@@ -1,10 +1,12 @@
 const knex = require('../db.js');
+const setupPaginator = require('knex-paginator');
 const random = require('randomstring');
 const moment = require('moment');
 
 let Product = function() {};
 let dateTime = Date.now();
 dateTime = moment(dateTime).format("YYYY-MM-DD");
+setupPaginator(knex);
 
 Product.insertProduct = function(req, result) {
   let rand = random.generate();
@@ -66,10 +68,11 @@ Product.updateProduct = function(req, result) {
 
 Product.getAllProduct = function(req, result) {
   knex.from('T_Product').select("*")
-    .then((rows) => {
-      // console.log(rows)
+    .paginate(5, req.page, true)
+    .then((paginator) => {
+      // console.log(paginator)
       let data = [];
-      rows.map(item =>{
+      paginator.data.map(item =>{
         getItem = {
           id : item.id,
           name : item.name,
@@ -79,7 +82,6 @@ Product.getAllProduct = function(req, result) {
         
         data.push(getItem);
       });
-      console.log(data);
       result(null, data);
     })
     .catch((err) => { result(err, null) })

@@ -26,7 +26,7 @@ exports.insertProductC = function(req, res) {
 
 exports.updateProduct = function(req, res) {
   try {
-    if (req.name) {
+    if (req.body.name) {
       ProductModel.updateProduct(req.body, function(err, data) {
         let message;
         let status = 400;
@@ -50,7 +50,7 @@ exports.updateProduct = function(req, res) {
 
 exports.getAllProduct = function(req, res) {
   try {
-    ProductModel.getAllProduct(req.body, function(err, data) {
+    ProductModel.getAllProduct(req.params, function(err, data) {
       if (err) {
         res.status(402).send({err: true, message : 'Harap hubungi adminstrator!'});    
       } else {

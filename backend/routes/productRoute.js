@@ -7,7 +7,7 @@ module.exports = function(app) {
   app.route('/api/product/update')
     .put(product.updateProduct);
   
-  app.route('/api/product/getAll')
+  app.route('/api/product/getAll/:page')
     .get(product.getAllProduct);
   
   app.route('/api/product/get/:id')
