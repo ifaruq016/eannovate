@@ -2,6 +2,8 @@ const knex = require('../db.js');
 const setupPaginator = require('knex-paginator');
 const random = require('randomstring');
 const moment = require('moment');
+const multer = require('multer');
+const storage = require('../multerStorage');
 
 let Product = function() {};
 let dateTime = Date.now();

@@ -15,4 +15,7 @@ module.exports = function(app) {
 
   app.route('/api/product/delete/:id')
     .delete(product.delProduct);
+
+  app.route('/api/product/upload')
+    .post(product.uploadProduct);
 };

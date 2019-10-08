@@ -1,4 +1,27 @@
 const ProductModel = require('../models/productModel');
+// const _ = require('lodash');
+
+// LOCAL FUNCTION AND CONST 
+const uploadPath = './files/';
+function returnDateNow() {
+  let today = new Date();
+  let dd = today.getDate();
+
+  let mm = today.getMonth()+1; 
+  let yyyy = today.getFullYear();
+  if(dd<10) 
+  {
+    dd='0'+dd;
+  } 
+
+  if(mm<10) 
+  {
+    mm='0'+mm;
+  } 
+
+  today = yyyy+'-'+mm+'-'+dd;
+  return today;
+}
 
 exports.insertProductC = function(req, res) {
   try {
@@ -87,5 +110,60 @@ exports.delProduct = function(req, res) {
     })
   } catch (error) {
     res.status(402).send({err: true, message : 'Harap hubungi adminstrator!'});    
+  }
+}
+
+exports.uploadProduct = function(req, res) {
+  try {
+    if (!req.files) {
+      res.status(400);
+      res.send({err: true, message: 'No file uploaded'});
+    } else {
+      let date = returnDateNow();
+      let responseData = {}
+
+      if (Array.isArray(req.files.data)) {
+        // UPLOAD MULTIPLE FILES
+        let success = true;
+        let data = [];
+        req.files.data.map(function(item) {
+          let imagesName = date + '_' + item.name;
+          item.mv(uploadPath + imagesName);
+
+          tempData = {
+            'name' : item.name,
+            'mimetype' : item.mimetype,
+            'size' : item.size
+          }
+
+          data.push(tempData);
+        })
+
+        responseData.success = success;
+        responseData.image_list = data;
+
+      } else {
+        // UPLOAD SINGEL FILE 
+        let item = req.files.data;
+        let imagesName = date + '_' + item.name;
+        item.mv(uploadPath + imagesName);
+
+        responseData = {
+          'success' : true,
+          'image_list' : [
+            {
+              'name' : item.name,
+              'mimetype' : item.mimetype,
+              'size' : item.size
+            }
+          ]
+        }
+
+      }
+
+      res.status(200).send(responseData);
+    }
+  } catch (error) {
+    res.status(400).send({err : true, message : 'Harap hubungi adminstrator!'})
   }
 }

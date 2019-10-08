@@ -2,7 +2,7 @@
   "name": "eannovate",
   "version": "1.0.0",
   "description": "programming test",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,12 +12,16 @@
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
+    "express-fileupload": "^1.1.6-alpha.5",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-express": "^1.4.1",
     "grunt-express-server": "^0.5.4",
     "knex": "^0.19.3",
     "knex-paginator": "^2.0.0",
+    "lodash": "^4.17.15",
     "moment": "^2.24.0",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.2",
     "mysql": "^2.16.0",
     "randomstring": "^1.1.5"
   }
