@@ -16,7 +16,7 @@
     "grunt-contrib-watch": "^1.1.0",
     "grunt-express": "^1.4.1",
     "grunt-express-server": "^0.5.4",
-    "knex": "^0.19.3",
+    "knex": "^0.19.5",
     "knex-paginator": "^2.0.0",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
